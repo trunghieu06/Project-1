@@ -1,0 +1,26 @@
+<annotation>
+	<folder>labels</folder>
+	<filename>32.jpg</filename>
+	<path>E:\labels\32.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>257</width>
+		<height>196</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>number_plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>38</xmin>
+			<ymin>127</ymin>
+			<xmax>83</xmax>
+			<ymax>142</ymax>
+		</bndbox>
+	</object>
+</annotation>
