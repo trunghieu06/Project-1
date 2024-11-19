@@ -1,0 +1,26 @@
+<annotation verified="yes">
+	<folder>DataSet</folder>
+	<filename>191.jpg</filename>
+	<path>E:\DataSet\191.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>472</width>
+		<height>303</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>number_plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>234</xmin>
+			<ymin>63</ymin>
+			<xmax>309</xmax>
+			<ymax>132</ymax>
+		</bndbox>
+	</object>
+</annotation>
