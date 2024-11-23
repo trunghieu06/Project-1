@@ -24,7 +24,7 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 if not os.path.exists('./DataSet/images'):
     print("Folder images is not exist!")
     exit(0)
-path = glob('./DataSet/images/*.xml')
+path = glob('./DataSet/images/*.xml') # Lấy toàn bộ định dạng .xml
 labels_dict = dict(filepath=[],xmin=[],xmax=[],ymin=[],ymax=[])
 for i in path:
     info = xet.parse(i)
@@ -63,7 +63,7 @@ for ind in range(len(image_path)):
     img_arr = cv2.imread(image)
     # process data
     h,w,d = img_arr.shape
-    load_image = load_img(image,target_size=(224,224))
+    load_image = load_img(image,target_size=(224,224)) # Thay doi kich thuoc anh
     load_image_arr = img_to_array(load_image)
     norm_load_image_arr = load_image_arr/255.0 # normalize
     xmin,xmax,ymin,ymax = labels[ind]
@@ -87,21 +87,25 @@ y = np.array(output,dtype=np.float32)
 x_train,x_test,y_train,y_test = train_test_split(X,y,train_size=0.8,random_state=0) # ham chia random du lieu de train va test voi ti le 8:2
 
 # base model
-inception_resnet = InceptionResNetV2(weights="imagenet",include_top=False, input_tensor=Input(shape=(224,224,3)))
+inception_resnet = InceptionResNetV2(weights="imagenet",include_top=False, input_tensor=Input(shape=(224,224,3))) #Kich thuoc dau vao 224*224 va co 3 kenh mau (RGB)
 
 # head model
 headmodel = inception_resnet.output
-headmodel = Flatten()(headmodel)
-headmodel = Dense(500,activation="relu")(headmodel)
+headmodel = Flatten()(headmodel) # chuyển đổi 1 tensor nhiều chiều thành một vector một chiều
+
+# Sử dụng 2 lớp Dense với 500 và 250 neuron đều sử dụng hàm kích hoạt ReLU vào mô hình.
+# Relu( Rectified Linear Unit) là một hàm kích hoạt phổ biến trong các mạng thần kinh. Hàm này = max(0, input_value).
+headmodel = Dense(500,activation="relu")(headmodel) 
 headmodel = Dense(250,activation="relu")(headmodel)
-headmodel = Dense(4,activation='sigmoid')(headmodel)
+# Lớp Dense cuối với 4 neuron, sử dụng hàm sigmoid. Số lượng neuron tương ứng với số lớp cần phân loại
+headmodel = Dense(4,activation='sigmoid')(headmodel) # Hàm kích hoạt sigmoid sẽ đưa ra các giá trị xác suất nằm trong khoảng từ 0 đến 1
 
 # dinh nghia model
 model = Model(inputs=inception_resnet.input,outputs=headmodel)
-model.compile(loss='mse',optimizer=tf.keras.optimizers.Adam(learning_rate=1e-4))
+model.compile(loss='mse',optimizer=tf.keras.optimizers.Adam(learning_rate=1e-4)) # loss function tính theo mean squared error (mse)
 
 # model training and save
-tfb = TensorBoard('object_detection')
+tfb = TensorBoard('object_detection') # Theo dõi quá trình huấn luyện 
 history = model.fit(x=x_train,y=y_train,batch_size=10,epochs=100,validation_data=(x_test,y_test),callbacks=[tfb])
 model.save('./my_model.keras')
 
