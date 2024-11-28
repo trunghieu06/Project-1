@@ -1,7 +1,11 @@
 Number plate recognition
+
 Conducted by: 
+
 24122014 - Nguyễn Duy Đạt
+
 24122015 - Mai Hoàng Hiệp
+
 24122033 - Trần Trung Hiếu
 
 Link báo cáo Latex: https://www.overleaf.com/8627765326fcbrwrfvmrmq#d73b94
